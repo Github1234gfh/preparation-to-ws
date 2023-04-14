@@ -40,11 +40,15 @@ class UserLogin(APIView):
                     {"error": {"code": 401, "message": "Authentication failed"}},
                     status=status.HTTP_401_UNAUTHORIZED,
                 )
-
-            token, created = Token.objects.get_or_create(user=user)
+            if UserLoginSerializer(user).data['password'] == request.data['password']:
+                token, created = Token.objects.get_or_create(user=user)
+                return Response(
+                    {"body": {"user_token": token.key}}, status=status.HTTP_200_OK
+                )
             return Response(
-                {"body": {"user_token": token.key}}, status=status.HTTP_200_OK
-            )
+                    {"error": {"code": 401, "message": "Authentication failed"}},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
         return Response(
             {
                 "error": {

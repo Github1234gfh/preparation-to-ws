@@ -1,6 +1,7 @@
 
 from rest_framework import serializers
 from .models import *
+
 class UserRegSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -18,8 +19,10 @@ class UserRegSerializer(serializers.ModelSerializer):
         return user
     
 class UserLoginSerializer(serializers.Serializer):
+
     email = serializers.EmailField()
     password = serializers.CharField()
+
 
 
 class ProductSerializer(serializers.ModelSerializer):

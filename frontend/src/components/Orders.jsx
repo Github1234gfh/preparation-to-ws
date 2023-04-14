@@ -22,7 +22,8 @@ export const Orders = ({ token }) => {
         }
         getOrder()
     }, [])
-    console.log(orders)
+
+    
     return (
         <>
             <div className="pricing-header p-3 pb-md-4 mx-auto text-center">

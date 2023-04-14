@@ -7,6 +7,7 @@ export const Login = ({ token, setToken }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+    const [errors, setErrors] = useState(false)
 
     const login = async () => {
         await fetch('http://localhost:8000/2/api-cart/login', {
@@ -20,7 +21,23 @@ export const Login = ({ token, setToken }) => {
                 email: email,
                 password: password,
             })
-        }).then(rez => rez.json()).then(rez => { setToken(rez.body.user_token); localStorage.setItem('token', rez.body.user_token) })
+        }).then(rez =>
+        (rez.ok ? rez.json().then(g => {
+            setToken(g.body.user_token);
+            localStorage.setItem('token', g.body.user_token);
+            navigate('/')
+        })
+            : rez.json().then(rez => {
+                try {
+                    setErrors(rez.error.errors ? rez.error.errors : rez.error)
+                    console.log(rez.error.message)
+                }
+                catch {
+                    console.log(rez)
+                    // setErrors(rez.error)
+                }
+            }
+            )))
     }
 
     const onssubmit = (e) => {
@@ -43,15 +60,24 @@ export const Login = ({ token, setToken }) => {
                 <div className="col">
                     <div className="row">
                         <form onSubmit={e => onssubmit(e)}>
+                            {
+                                errors.message ? <span style={{ color: 'red' }}>{errors.message}</span>
+                                    : null
+                            }
                             <div className="form-floating mb-3">
-                                <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                                <input style={errors.email || errors.message ? { border: '1px solid red' } : null} value={email} onChange={e => setEmail(e.target.value)} type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
                                 <label htmlFor="floatingInput">Email</label>
                             </div>
+                            {
+                                errors.email ? <span style={{ color: 'red' }}>{errors.email}</span> : null
+                            }
                             <div className="form-floating mb-3">
-                                <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control" id="floatingPassword" placeholder="Password" />
+                                <input style={errors.password || errors.message ? { border: '1px solid red' } : null} value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control" id="floatingPassword" placeholder="Password" />
                                 <label htmlFor="floatingPassword">Password</label>
                             </div>
-
+                            {
+                                errors.password ? <span style={{ color: 'red' }}>{errors.password}</span> : null
+                            }
                             <button className="w-100 btn btn-lg btn-primary mb-3" type="submit">Войти</button>
                             <NavLink to={'/'}><button className="w-100 btn btn-lg btn-outline-info" type="submit">Назад</button></NavLink>
 
