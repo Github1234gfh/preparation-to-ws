@@ -1,5 +1,6 @@
 import { Index } from "./components/Index";
 import './css/bootstrap.min.css'
+import './css/style.css'
 
 function App() {
   return (

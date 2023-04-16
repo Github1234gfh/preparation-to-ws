@@ -6,7 +6,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import *
 from .permitions import *
 from rest_framework import status
-from django.forms.models import model_to_dict
 
 class UserRegister(APIView):
     def post(self, request):

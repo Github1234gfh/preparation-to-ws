@@ -1,11 +1,14 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom"
 import { Header } from './Header'
 
-export const Layout = ({ token, setToken }) => {
+export const Layout = ({ token, setToken, title }) => {
     return (
-        <div className='container py-3'>
+        <div className="container py-3">
             <header>
                 <Header token={token} setToken={setToken} />
+                <div className="pricing-header p-3 pb-md-4 mx-auto text-center">
+                    <h1 className="display-4 fw-normal">{title}</h1>
+                </div>
             </header>
             <main>
                 <Outlet />

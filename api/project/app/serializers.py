@@ -24,7 +24,6 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
 
-
 class ProductSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
