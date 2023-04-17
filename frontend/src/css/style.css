@@ -1,28 +1,38 @@
 @keyframes renderAnim {
     0% {
-      transform: translateX(-100px);
+        transform: translate(-50%);
+        opacity: 0;
     }
+
+    50% {
+        opacity: .2;
+    }
+
     100% {
-      transform: translateX(0);
+        transform: translate(0);
+        opacity: 1;
+
     }
-  }
+}
 
 .render {
-    animation: .8s renderAnim;
+    animation: 1s renderAnim;
 }
 
 @keyframes addToCartAnim {
     0% {
         box-shadow: 0px 0px 15px blue;
     }
+
     50% {
         box-shadow: 0px 0px 8px blue;
     }
+
     100% {
         box-shadow: none;
     }
 }
 
-.addToCart:active {
+.addToCart:focus {
     animation: 1s addToCartAnim;
 }

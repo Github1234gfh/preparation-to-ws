@@ -34,14 +34,14 @@ export const Cart = ({ token, setTitle }) => {
         }
     }
 
-    const incriment = (index) => {
-        const copy = Object.assign([], items)
+    const increment = (index) => {
+        const copy = [...items]
         copy[index].count += 1
         setItems(copy)
     }
 
     const dicrement = (index) => {
-        const copy = Object.assign([], items)
+        const copy = [...items]
         if (copy[index].count > 1) {
             copy[index].count -= 1
         }
@@ -87,7 +87,7 @@ export const Cart = ({ token, setTitle }) => {
                                             шт.</small></h1>
                                         <p>{item.description}</p>
 
-                                        <button onClick={() => incriment(index)} type="button" className="btn btn-lg btn-info mb-3">+</button>
+                                        <button onClick={() => increment(index)} type="button" className="btn btn-lg btn-info mb-3">+</button>
                                         <button onClick={() => dicrement(index)} type="button" className="btn btn-lg btn-warning mb-3">&minus;</button>
                                         <button onClick={() => Delete(item.id)} type="button" className="btn btn-lg btn-outline-danger mb-3">Удалить из корзины</button>
                                     </div>

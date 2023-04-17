@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import { Header } from './Header'
 
 export const Layout = ({ token, setToken, title }) => {
+
     return (
         <div className="container py-3">
             <header>
