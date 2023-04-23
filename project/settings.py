@@ -30,10 +30,12 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'app.User'
 
 REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'app.utils.custom_exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'app.authentication.BearerAuthentication'
     ]
 }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,3 +119,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

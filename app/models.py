@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 
-class User(AbstractBaseUser):
+class User(AbstractUser):
     fio = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=30)

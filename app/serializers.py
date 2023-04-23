@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-
+from django.contrib.auth import authenticate
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,8 +11,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User(
             email=self.validated_data['email'],
             fio=self.validated_data['fio'],
-            password=self.validated_data['password']
         )
+        password = self.validated_data['password']
+        user.set_password(password)
 
         user.save()
         return user
@@ -21,6 +22,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
+    def validate(self, data):
+         return authenticate(**data) or False
 
 
 class ProductSerializer(serializers.ModelSerializer):
